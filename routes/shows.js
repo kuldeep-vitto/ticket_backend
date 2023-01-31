@@ -20,7 +20,7 @@ const router = Router();
  *     tags: 
  *       - Show APIs
  */
-router.get("/", passport.authenticate("jwt", { session: false }), controllers.shows.getAllShows);
+router.get("/", passport.authenticate(["user","admin"], { session: false }), controllers.shows.getAllShows);
 
 
 /**
@@ -72,7 +72,7 @@ router.get("/", passport.authenticate("jwt", { session: false }), controllers.sh
  *     tags: 
  *       - Show APIs
  */
-router.post("/addshow", passport.authenticate("jwt", { session: false }), controllers.shows.addShow);
+router.post("/addshow", passport.authenticate(["admin"], { session: false }), controllers.shows.addShow);
 
 /**
  * @openapi
@@ -85,7 +85,7 @@ router.post("/addshow", passport.authenticate("jwt", { session: false }), contro
  *     tags: 
  *       - Show APIs
  */
-router.get("/bytheater/:id", passport.authenticate("jwt", { session: false }), controllers.shows.showByTheater);
+router.get("/bytheater/:id", passport.authenticate(["user","admin"], { session: false }), controllers.shows.showByTheater);
 
 /**
  * @openapi
@@ -98,6 +98,6 @@ router.get("/bytheater/:id", passport.authenticate("jwt", { session: false }), c
  *     tags: 
  *       - Show APIs
  */
-router.get("/only/:name", passport.authenticate("jwt", { session: false }), controllers.shows.showByShow);
+router.get("/only/:name", passport.authenticate(["user","admin"], { session: false }), controllers.shows.showByShow);
 export default router;
   

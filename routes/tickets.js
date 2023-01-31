@@ -14,7 +14,7 @@ const router = Router();
  *     tags: 
  *       - Ticket APIs
  */
-router.get("/", passport.authenticate("jwt", { session: false }), controllers.tickets.getByUser);
+router.get("/", passport.authenticate(["user","admin"], { session: false }), controllers.tickets.getByUser);
 
 /**
  * @openapi
@@ -27,7 +27,7 @@ router.get("/", passport.authenticate("jwt", { session: false }), controllers.ti
  *     tags: 
  *       - Ticket APIs
  */
-router.post("/book", passport.authenticate("jwt", { session: false }), controllers.tickets.bookTicket);
+router.post("/book", passport.authenticate(["user","admin"], { session: false }), controllers.tickets.bookTicket);
 
 /**
  * @openapi
@@ -40,7 +40,7 @@ router.post("/book", passport.authenticate("jwt", { session: false }), controlle
  *     tags: 
  *       - Ticket APIs
  */
-router.delete("/cancel/:id", passport.authenticate("jwt", { session: false }), controllers.tickets.cancelTicket);
+router.delete("/cancel/:id", passport.authenticate(["user","admin"], { session: false }), controllers.tickets.cancelTicket);
 
 
 export default router; 

@@ -13,9 +13,6 @@ const newShow = async (req) => {
         const { movie_name, theater_id, duration, start_time } = req.body;
         const theater = await getTheater(theater_id);
         if (!theater) { throw { statusCode: 405, message: "Please add this theater first!" }; }
-        if (req.user.role !== "admin" || req.user.id !== theater.user_id) {
-            throw { statusCode: 401, message: "Unauthorised Access!!" };
-        }
         const end_time = getEndTime(start_time, duration);
         const seats_available = theater.capacity;
        // movie_name = movie_name.toLowerCase().replace(/\b[a-z]/g, function(letter) { return letter.toUpperCase();});

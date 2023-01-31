@@ -23,7 +23,7 @@ const router = Router();
  *     tags: 
  *       - Theater APIs
  */
-router.get("/", passport.authenticate("jwt", { session: false }), controllers.theaters.getAllTheaters);
+router.get("/", passport.authenticate(["admin"], { session: false }), controllers.theaters.getAllTheaters);
 
 /**
  * @openapi
@@ -64,5 +64,5 @@ router.get("/", passport.authenticate("jwt", { session: false }), controllers.th
  *     tags: 
  *       - Theater APIs
  */
-router.post("/addtheater", passport.authenticate("jwt", { session: false }), controllers.theaters.addTheater);
+router.post("/addtheater", passport.authenticate(["admin"], { session: false }), controllers.theaters.addTheater);
 export default router;  
