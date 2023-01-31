@@ -6,10 +6,17 @@ const router = Router();
  * @openapi
  * /api/shows/:
  *   get:
- *     description: Wedoc!
+ *     summary: Get all shows.
+ *     description: List of all shows avaialable.
+ *     security:
+ *       - userToken: []
  *     responses:
  *       200:
- *         description: Returns a mysterious string.
+ *         description: All shows.
+ *       206:
+ *         description: There are no scheduled shows !!
+ *       500:
+ *         description: Internal server error.
  *     tags: 
  *       - Show APIs
  */
@@ -20,10 +27,48 @@ router.get("/", passport.authenticate("jwt", { session: false }), controllers.sh
  * @openapi
  * /api/shows/addshow/:
  *   post:
- *     description: Wedoc!
+ *     summary: Add new show.
+ *     description: this route is for adding a new show.
+ *     security:
+ *       - userToken: []
+ *     requestBody:
+ *          description: This is the request body required for adding a new show.
+ *          required: true
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                required:
+ *                  - movie_name
+ *                  - theater_id
+ *                  - duration
+ *                  - start_time
+ *                properties:
+ *                  movie_name:
+ *                    description: name of the movie.
+ *                    type: string
+ *                  theater_id:
+ *                    description: theater where to play movie
+ *                    type: number
+ *                  duration:
+ *                    description: duration of the movie.
+ *                    type: number
+ *                  theater_name:
+ *                    description: start_time
+ *                    type: string
  *     responses:
  *       200:
- *         description: Returns a mysterious string.
+ *         description: Show successfully created.
+ *       401:
+ *         description: Unauthorised access.
+ *       406:
+ *         description: Not valid duration or some field is missing.
+ *       405:
+ *         description: Add theater first.
+ *       500:
+ *         description: Internal server error.
+ *       501:
+ *         description: Time slot is overlapping with an existing show. Please either change duration or start_time.
  *     tags: 
  *       - Show APIs
  */

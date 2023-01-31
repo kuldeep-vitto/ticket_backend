@@ -9,12 +9,22 @@ const options = {
         info: {
             title: 'Movie Ticket Booking System!',
             version: '1.0.0',
+            description: 'These api calls are for ticket booking management system.',
         },
         servers: [
             {
                 url: 'http://localhost:5000/' 
             }
-        ]
+        ],
+		components: {
+			securitySchemes: {
+				userToken: {
+					type: 'http',
+					scheme: 'bearer',
+					bearerFormat: 'JWT',
+				}
+			}
+		},
   },
   apis: [path.join(__dirname, `../routes/`) + '*.js',], // files containing annotations as above
   };

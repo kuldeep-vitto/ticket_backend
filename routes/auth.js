@@ -25,12 +25,45 @@ router.get('/', (req, res) => {
  *   post:
  *     summary: Signup for both customer and admin
  *     description: Both customer and admin will use this common signup page, defining thier respective roles.
+ *     requestBody:
+ *          description: This is the request body required for login.
+ *          required: true
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                required:
+ *                  - name
+ *                  - email
+ *                  - password
+ *                  - role
+ *                properties:
+ *                  name: 
+ *                    description: Full name of user.
+ *                    type: string
+ *                  email:
+ *                    description: email of the user 
+ *                    type: string
+ *                  password:
+ *                    description: password of user
+ *                    type: string
+ *                  role:
+ *                    description: Admin or user.
+ *                    type: string
  *     responses:
- *       200:
- *         description: Returns a mysterious string.
+ *       201:
+ *         description: Signup successfull.
+ *       406:
+ *         description: Not a valid email or password.
+ *       409:
+ *         description: User already exist , try a diferent mail.
+ *       500:
+ *         description: Internal server error.
+ *       
  *     tags: 
  *       - Auth APIs
  */
+
 router.post('/signup', controllers.auth.userSignUp);
 
 /**
@@ -57,10 +90,16 @@ router.post('/signup', controllers.auth.userSignUp);
  *                    description: password set by user while signup
  *                    type: string
  *     responses:
+ *       200:
+ *         description: Token returned successfully.
  *       406:
- *         description: Not a valid email or wrong password.
+ *         description: Not a valid email or missing fields.
  *       404:
  *         description: User doesn't exist.
+ *       401:
+ *         description: Wrong Password.
+ *       500:
+ *         description: Internal server error.
  *       
  *     tags: 
  *       - Auth APIs

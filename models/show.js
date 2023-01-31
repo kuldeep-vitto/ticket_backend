@@ -38,7 +38,6 @@ Theater.hasMany(show, {
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE'
   });
-show.belongsTo(Theater);
 await show.sync();
 
 console.log("The table for the shows model was just (re)created!");

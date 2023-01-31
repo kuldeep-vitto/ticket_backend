@@ -11,10 +11,10 @@ const bookTicket = async (req, res) => {
     }
     
     catch (error) {
-        if (error.statusCode === null) {
-            return res.status(500).json({ message: error.message });
+        if (error.statusCode) {
+             return res.status(error.statusCode).json(error.message);
         }
-        return res.status(error.statusCode).json({ message: error.message });
+        return res.status(500).json({ message: error.message });
     }
 };
 const getByUser = async (req, res) => {
@@ -25,10 +25,10 @@ const getByUser = async (req, res) => {
         res.status(200).json(tickets);
     }
     catch (error) {
-        if (error.statusCode === null) {
-            return res.status(500).json({ message: error.message });
+        if (error.statusCode) {
+             return res.status(error.statusCode).json(error.message);
         }
-        return res.status(error.statusCode).json({ message: error.message });
+        return res.status(500).json({ message: error.message });
     }
 };
 const cancelTicket = async (req, res) => {
@@ -40,10 +40,10 @@ const cancelTicket = async (req, res) => {
     }
     
     catch (error) {
-        if (error.statusCode === null) {
-            return res.status(500).json({ message: error.message });
+        if (error.statusCode) {
+             return res.status(error.statusCode).json(error.message);
         }
-        return res.status(error.statusCode).json({ message: error.message });
+        return res.status(500).json({ message: error.message });
     }
 };
 export default {

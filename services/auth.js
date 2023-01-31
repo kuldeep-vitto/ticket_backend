@@ -12,11 +12,8 @@ const loginService = async (email,password) => {
         if (!match) {
             throw {statusCode: 401, message: "Wrong Password!"};
         }
-        const token = jwt.sign({
-            id: user.id,
-            email: user.email,
-            role: user.role
-        }, process.env.JWT_SECRET_KEY);
+        const { id , role } = user;
+        const token = jwt.sign({id,email,role }, process.env.JWT_SECRET_KEY);
         return token;
     } catch (error) {
         throw error;

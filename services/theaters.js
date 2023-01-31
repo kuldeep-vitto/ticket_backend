@@ -6,7 +6,8 @@ const everyTheater = async (req) => {
             throw { statusCode: 401, message: "Unauthorised Access!!" };
         }
         const theaters = await allTheaters(req.user.id);
-        if(theaters.length === 0 ){throw { statusCode: 204, message: "No theaters exist for this user!!" };}
+        
+        if(theaters.length === 0 ){ throw { statusCode: 206, message: "No theaters exist for this user!!" };}
         return theaters;
     } catch (error) {
         throw error;

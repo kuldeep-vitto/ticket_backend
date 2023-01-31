@@ -33,7 +33,6 @@ Show.hasMany(ticket, {
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE'
   });
-  ticket.belongsTo(Show);
 
 await ticket.sync();
 export default ticket;

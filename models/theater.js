@@ -26,7 +26,6 @@ User.hasMany(theater, {
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE'
   });
-theater.belongsTo(User);
 
 await theater.sync();
 export default theater;
