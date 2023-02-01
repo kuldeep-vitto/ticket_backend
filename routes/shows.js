@@ -47,15 +47,19 @@ router.get("/", passport.authenticate(["user","admin"], { session: false }), con
  *                  movie_name:
  *                    description: name of the movie.
  *                    type: string
+ *                    example: Bahubali
  *                  theater_id:
  *                    description: theater where to play movie
  *                    type: number
+ *                    example: 1
  *                  duration:
- *                    description: duration of the movie.
+ *                    description: duration of the movie in minutes
  *                    type: number
- *                  theater_name:
- *                    description: start_time
+ *                    example: 140
+ *                  start_time:
+ *                    description: start_time in HH:MM
  *                    type: string
+ *                    example: 15:00
  *     responses:
  *       200:
  *         description: Show successfully created.
@@ -78,10 +82,28 @@ router.post("/addshow", passport.authenticate(["admin"], { session: false }), co
  * @openapi
  * /api/shows/bytheater/:id/:
  *   get:
- *     description: Wedoc!
+ *     summary: Get all shows filtered by theater id.
+ *     description: List of shows avaialable at given theater.
+ *     security:
+ *       - userToken: []
+ *     parameters:
+ *     - in: path
+ *       name: id
+ *       type: number
+ *       required: true
+ *       example: 1
+ *       description: This parameter is used for getting shows at this particular theater.
  *     responses:
+ *       400:
+ *         description: Not a valid theater ID.
  *       200:
- *         description: Returns a mysterious string.
+ *         description: Get all shows at this theater.
+ *       204:
+ *         description: No show at this theater!!
+ *       405:
+ *         description: This theater doesn't exist!!!
+ *       500:
+ *         description: Internal server error.
  *     tags: 
  *       - Show APIs
  */
@@ -91,10 +113,24 @@ router.get("/bytheater/:id", passport.authenticate(["user","admin"], { session: 
  * @openapi
  * /api/shows/only/:name/:
  *   get:
- *     description: Wedoc!
+ *     summary: Get all shows with this movie name.
+ *     description: List of all shows playing this movie..
+ *     security:
+ *       - userToken: []
+ *     parameters:
+ *     - in: path
+ *       name: name
+ *       type: string
+ *       required: true
+ *       example: bahubali
+ *       description: This parameter is used for getting shows play this movie.
  *     responses:
  *       200:
- *         description: Returns a mysterious string.
+ *         description: Get all shows for this movie.
+ *       204:
+ *         description: No show for this movie!!
+ *       500:
+ *         description: Internal server error.
  *     tags: 
  *       - Show APIs
  */

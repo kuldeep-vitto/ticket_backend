@@ -30,7 +30,7 @@ const newShow = async (req) => {
 const filterTheater = async (id) => {
     try {
         const theater = await getTheater(id);
-        if (!theater) { throw { statusCode: 405, message: "Please add this theater first!!" }; }
+        if (!theater) { throw { statusCode: 405, message: "This theater doesn't exist!" }; }
         const shows = await byTheater(id);
         if (shows.length == 0) { throw { statusCode: 204, message: "No show at this theater!!" }; }
         else { return shows; }

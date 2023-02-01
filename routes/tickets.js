@@ -7,10 +7,17 @@ const router = Router();
  * @openapi
  * /api/tickets/:
  *   get:
- *     description: Wedoc!
+ *     summary: Get all tickets by logged in user. 
+ *     description: List of all tickets booked by this user.
+ *     security:
+ *       - userToken: []
  *     responses:
  *       200:
- *         description: Returns a mysterious string.
+ *         description: All tickets.
+ *       405:
+ *         description: No booked tickets!!
+ *       500:
+ *         description: Internal server error.
  *     tags: 
  *       - Ticket APIs
  */
@@ -20,10 +27,40 @@ router.get("/", passport.authenticate(["user","admin"], { session: false }), con
  * @openapi
  * /api/tickets/book/:
  *   post:
- *     description: Wedoc!
+ *     summary: Book new ticket.
+ *     description: This route is for booking a new ticket by logged in user.
+ *     security:
+ *       - userToken: []
+ *     requestBody:
+ *          description: This is the request body required for booking a new ticket.
+ *          required: true
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                required:
+ *                  - show_id
+ *                  - booked_seats
+ *                properties:
+ *                  show_id:
+ *                    description: show id for which booking seats.
+ *                    type: number
+ *                    example: 1
+ *                  booked_seats:
+ *                    description: number of seats want to book.
+ *                    type: number
+ *                    example: 3
  *     responses:
  *       200:
- *         description: Returns a mysterious string.
+ *         description: Ticket booked successfully..
+ *       405:
+ *         description: These many seats are not available.
+ *       406:
+ *         description: Not valid number of seats or some field is missing.
+ *       404:
+ *         description: This show doesn't exist.
+ *       500:
+ *         description: Internal server error.
  *     tags: 
  *       - Ticket APIs
  */
@@ -33,10 +70,26 @@ router.post("/book", passport.authenticate(["user","admin"], { session: false })
  * @openapi
  * /api/tickets/cancel/:id/:
  *   delete:
- *     description: Wedoc!
+ *     summary: Cancel ticket.
+ *     description: Cancel ticked by id,must have been booked bby logged in user.
+ *     security:
+ *       - userToken: []
+ *     parameters:
+ *     - in: path
+ *       name: id
+ *       type: number
+ *       required: true
+ *       example: 1
+ *       description: This parameter is used for getting the ticket ID for a particular ticket cancellation.
  *     responses:
+ *       400:
+ *         description: Not a valid ticket or no such ticket exist.
  *       200:
- *         description: Returns a mysterious string.
+ *         description: Get all shows at this theater.
+ *       401:
+ *         description: Unauthorised cancellation.
+ *       500:
+ *         description: Internal server error.
  *     tags: 
  *       - Ticket APIs
  */

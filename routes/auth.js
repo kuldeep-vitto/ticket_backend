@@ -41,15 +41,19 @@ router.get('/', (req, res) => {
  *                  name: 
  *                    description: Full name of user.
  *                    type: string
+ *                    example: Vivek Yadav
  *                  email:
  *                    description: email of the user 
  *                    type: string
+ *                    example: vivek@badaadmi.com
  *                  password:
  *                    description: password of user
  *                    type: string
+ *                    example: AHGhfhkf@12
  *                  role:
  *                    description: Admin or user.
  *                    type: string
+ *                    example: user
  *     responses:
  *       201:
  *         description: Signup successfull.
@@ -86,9 +90,11 @@ router.post('/signup', controllers.auth.userSignUp);
  *                  email:
  *                    description: email of the user used at signup.
  *                    type: string
+ *                    example: vivek@badaadmi.com
  *                  password:
  *                    description: password set by user while signup
  *                    type: string
+ *                    example: AHGhfhkf@12
  *     responses:
  *       200:
  *         description: Token returned successfully.

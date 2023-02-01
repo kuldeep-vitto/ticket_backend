@@ -21,7 +21,7 @@ const router = Router();
  *       500:
  *         description: Internal server error.
  *     tags: 
- *       - Theater APIs
+ *       - Theater APIs (admin only)
  */
 router.get("/", passport.authenticate(["admin"], { session: false }), controllers.theaters.getAllTheaters);
 
@@ -47,9 +47,11 @@ router.get("/", passport.authenticate(["admin"], { session: false }), controller
  *                  theater_name:
  *                    description: name of the theater.
  *                    type: string
+ *                    example: PVR1
  *                  capacity:
  *                    description: password set by user while signup
  *                    type: number
+ *                    example: 50
  *     responses:
  *       200:
  *         description: List of all theaters created by this user.
@@ -62,7 +64,7 @@ router.get("/", passport.authenticate(["admin"], { session: false }), controller
  *       500:
  *         description: Internal server error.
  *     tags: 
- *       - Theater APIs
+ *       - Theater APIs (admin only)
  */
 router.post("/addtheater", passport.authenticate(["admin"], { session: false }), controllers.theaters.addTheater);
 export default router;  
