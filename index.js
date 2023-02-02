@@ -8,8 +8,7 @@ import { Sequelize } from 'sequelize';
 import swaggerSpec from './config/swagger.js';
 import swaggerUi from "swagger-ui-express";
 import routes from "./routes/index.js";
-//import reset from './test/reset.js';
-//import payment from "./test/payment.js";
+import reset from './config/reset.js';
 const app = express();
 app.use(bodyParser.json({ limit: '30mb', extended: true }));
 app.use(bodyParser.urlencoded({ limit: '30mb', extended: true }));
@@ -29,7 +28,6 @@ app.get("/", (req, res) => {
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use('/api', routes);
 //app.get('/reset', reset);
-//app.use('/payment', payment);
 
 
 const PORT = process.env.PORT || 5000;
